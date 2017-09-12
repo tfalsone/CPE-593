@@ -25,7 +25,7 @@ void quicksort(int arr[], int left, int right)
     while (arr[j] > piv_val)
       j--;
     if (i <= j){
-      std::swap(arr[i], arr[j]);
+      swap(arr[i], arr[j]);
       i++;
       j--;
     }

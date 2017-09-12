@@ -12,16 +12,16 @@ void printArray(int arr[], int size)
 void heapify(int arr[], int n, int i)
 {
   int largest = i;  // Initial root
-  int l = 2*i + 1;  // Left branch of root
-  int r = 2*i + 2;  // Right branch of root
+  int left = 2*i + 1;  // Left branch of root
+  int right = 2*i + 2;  // Right branch of root
     
   // If left child is larger than root
-  if (l < n && arr[l] > arr[largest])
-    largest = l;
+  if (left < n && arr[left] > arr[largest])
+    largest = left;
     
   // If right child is larger than root
-  if (r < n && arr[r] > arr[largest])
-    largest = r;
+  if (right < n && arr[right] > arr[largest])
+    largest = right;
     
   // If largest is not root
   if (largest != i) {
