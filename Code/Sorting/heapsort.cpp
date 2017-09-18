@@ -26,7 +26,7 @@ void heapify(int arr[], int n, int i)
   // If largest is not root
   if (largest != i) {
     swap(arr[i], arr[largest]);
-    heapify(arr, n, largest);
+    heapify(arr, n, largest); // Sort any branches below the branches you just switched
   }
 }
 
@@ -36,6 +36,7 @@ void heapsort(int arr[], int n)
   for (int i = (n / 2) - 1; i >= 0; i--)
     heapify(arr, n, i);
 
+  // Put largest number in proper position, sort tree without the already sorted number
   for (int i = n-1; i >= 0; i--) {
     swap(arr[0], arr[i]);
     heapify(arr, i, 0);

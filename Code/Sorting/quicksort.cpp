@@ -39,7 +39,7 @@ void quicksort(int arr[], int left, int right)
 
 int main()
 {
-  int arr[] = {0, 1, 4, 2, 9, 7};
+  int arr[] = {0, 4, 1, 5, 5, 1, 9};
   int size = sizeof(arr)/sizeof(arr[0]);
   cout << "The current array is: " << endl;
   printArray(arr, size);
