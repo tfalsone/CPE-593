@@ -11,3 +11,10 @@ void fischerYatesShuffle(int a[], int n) {
     }
 }
 
+void badShuffle(int a[], int n) {
+    for(int i = 0; i < n; i++) {
+        uniform_int_distribution<int> dist(0,n);
+        swap(x[i], x[dist(generator)]);
+    }
+}
+
