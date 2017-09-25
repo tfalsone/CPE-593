@@ -1,4 +1,4 @@
-#include <iostream>
+#include   <iostream>
 
 using namespace std;
 
@@ -9,6 +9,7 @@ void printArray(int arr[], int size)
   cout << endl;
 }
 
+// n is size of the array, i is the position of the root
 void heapify(int arr[], int n, int i)
 {
   int largest = i;  // Initial root

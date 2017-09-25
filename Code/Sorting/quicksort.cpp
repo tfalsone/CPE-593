@@ -17,7 +17,6 @@ void quicksort(int arr[], int left, int right)
   int piv_val = arr[(left+right)/2];
 
   int i = left, j = right;
-  int temp;
 
   while ( i <= j) {
     while (arr[i] < piv_val)
