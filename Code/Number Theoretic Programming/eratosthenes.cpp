@@ -8,22 +8,25 @@
  #include<iostream>
  using namespace std;
 
- void eratosthenes(int n) {
-    // O(nlog log n)
-    bool primes[n] = true;
-    for (int i = 2; i <= n; i++) {
-        if (primes(i)) {
-            for (int j = 2*i; j <= n; j += i) {
-                primes[j] = false;
-            }
-        }
-    }
-}
+//  void eratosthenes(int n) {
+//     // O(nlog log n)
+//     bool primes[n] = true;
+//     for (int i = 2; i <= n; i++) {
+//         if (primes(i)) {
+//             for (int j = 2*i; j <= n; j += i) {
+//                 primes[j] = false;
+//             }
+//         }
+//     }
+// }
 
  // KNOW THIS
- int modifiedEratosthenes(int n) {
-     bool primes[n] = true;
-     for(int i = 4; i < n; i += 2)
+ void modifiedEratosthenes(int n) {
+    bool primes[n];
+    for (int i = 0; i < n; i++) {
+        primes[i] = true;
+    }
+    for(int i = 4; i < n; i += 2)
         primes[i] = false;
     for(int i = 3; i < n; i++) {
         if(primes[i]) {
@@ -31,33 +34,65 @@
                 primes[j] = false;
         }
     }
+    for (int i = 2; i < n; i++){
+        if (primes[i] == true)
+           cout << i << '\t';
+    }
+    cout << endl;
  }
+
+ void eratosthenes2(int n) {
+     bool primes[n+1];
+     for (int i = 0; i <= n; i++) {
+         primes[i] = true;
+     }
+     for (int i = 2; i <= n; i++) {
+         if (primes[i]) {
+             for (int j = i*i; j <= n; j += i){
+                 primes[j] = false;
+             }
+         }
+     }
+     for (int i = 2; i < n; i++){
+         if (primes[i] == true)
+            cout << i << '\t';
+     }
+     cout << endl;
+ }
+
  
- class Bitvec {
- private:
-    uint64_t* bits;
- public:
-    Bitvec(size_t size, bool initial) {
-        const int NUM_WORDS = (size + 63) / 64;
-        uint64_t v = (uint64_t)-1L;
-        bits = new uint64_t[NUM_WORDS];
-        for (int i = 0; i < NUM_WORDS; ++i)
-            bits[i] = v;
-    }
+//  class Bitvec {
+//  private:
+//     uint64_t* bits;
+//  public:
+//     Bitvec(size_t size, bool initial) {
+//         const int NUM_WORDS = (size + 63) / 64;
+//         uint64_t v = (uint64_t)-1L;
+//         bits = new uint64_t[NUM_WORDS];
+//         for (int i = 0; i < NUM_WORDS; ++i)
+//             bits[i] = v;
+//     }
 
-    void set(uint64_t i) {
-        bits[i/64] |= (1 << (i % 64)); // Dividing by 64 shifts the boolean number by 6, gets position of word
-    }
+//     void set(uint64_t i) {
+//         bits[i/64] |= (1 << (i % 64)); // Dividing by 64 shifts the boolean number by 6, gets position of word
+//     }
 
-    void clear(uint64_t i) {
-        bits[i/64] &= ~(1 << (i % 64));
-    }
+//     void clear(uint64_t i) {
+//         bits[i/64] &= ~(1 << (i % 64));
+//     }
 
-    boot test(uint64_t i) {
-        return (bits[i/64]) & (1 << (i % 64));
-    }
+//     boot test(uint64_t i) {
+//         return (bits[i/64]) & (1 << (i % 64));
+//     }
 
-    void toggle(uint64_t i) {
-        bits[i/64] ^= (1 << (i % 64));
-    }
- };
+//     void toggle(uint64_t i) {
+//         bits[i/64] ^= (1 << (i % 64));
+//     }
+//  };
+
+ int main() 
+ {
+    eratosthenes2(100);
+    cout << endl;
+    modifiedEratosthenes(100);
+ }
