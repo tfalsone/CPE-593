@@ -18,12 +18,12 @@ int betterPower(int x, int n) {
     }
 }
 
+// Compute x^n mod m faster than (x^n) mod m
 int powermod(int x, int n, int m) {
     int prod = 1;
     while (n > 0) {
-        if (N % 2 != 0){
+        if (x % 2 == 1)
             prod = (prod * x) % m;
-        }
         x = (x*x) % m;
         n = n / 2;        
     }

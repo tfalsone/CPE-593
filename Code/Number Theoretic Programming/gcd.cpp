@@ -12,7 +12,14 @@ int gcd (int a, int b) {
 }
 
 int lcm (int a, int b) {
-    
+    int max;
+    max = (a > b) ? a : b;
+
+    if (max % a == 0 && max % b == 0) {
+        return max;
+    } else {
+        ++max;
+    }
 }
 
 int main()
@@ -23,4 +30,5 @@ int main()
     cin >> b;
 
     cout << "The GCD of those numbers is " << gcd(a,b) << endl;
+    cout << "The LCM of those numbers is " << lcm(a,b) << endl;
 }

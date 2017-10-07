@@ -1,0 +1,2 @@
+Quiz next class on prime numbers, gcd
+Probably good to know eratosthenes sleeve
