@@ -48,7 +48,7 @@
      }
      for (int i = 2; i <= n; i++) {
          if (primes[i]) {
-             for (int j = i*i; j <= n; j += i){
+             for (int j = i*i; j <= n; j += i) {
                  primes[j] = false;
              }
          }
@@ -92,7 +92,7 @@
 
  int main() 
  {
-    eratosthenes2(100);
+    //eratosthenes2(100);
     cout << endl;
     modifiedEratosthenes(100);
  }

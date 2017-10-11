@@ -49,8 +49,9 @@ bool isPrime(int n, int k) {
 int main() {
     int k = 5;
     cout << "All primes smaller than 100: " << endl;
+    int count = 0;
     for (int n = 100; n < 1000; n++)
         if (isPrime(n, k))
-            cout << n << '\t';
-    cout << endl;
+            count++;
+    cout << count;
 }
