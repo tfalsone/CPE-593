@@ -3,6 +3,14 @@
 #include <math.h>
 using namespace std;
 
+bool isPrime(long int n) {
+    for (int i = 2; i <= sqrt(n); i++){
+        if(n % i == 0)
+            return false;
+    }
+    return true;
+}
+
 
 int computePrimes(long int a, long int b) {
     long int range = b - a + 1;
@@ -36,27 +44,22 @@ int computePrimes(long int a, long int b) {
         }
     }
 
-    for (int i = 3; i <= sqrt(b); i += 2) {
-        int rem = a % i;
-        //cout << "rem: " << rem << endl;
-        int diff = i - rem;
-        //cout << "diff: " << diff << endl;
-        for (int j = a + diff; j < range; j += diff) {
-            //cout << "j: " << j << '\t' << "i: " << (i) << endl;
-            if (primes[j] && (j) != i) {
-                primes[j] = false;
-                cout << a + j << '\t';
-            }
+    for (long int i = 3; i <= sqrt(b); i += 2) {
+        if (isPrime(i)) {
+            long int rem = a % i;
+            long int diff = i - rem;
+            for (int j = diff; j <= range; j += i) {
+                if (primes[j] && j+rem != i) {
+                    primes[j] = false;
+                }
+            }            
         }
     }
-
-    cout << endl;
-
     
     for (int i = 0; i < range; i++) {
         if (primes[i] == true){
            count++;
-           cout << a+i << '\t';
+           //cout << a+i << '\t';
         }
     }
     cout << endl;
@@ -65,5 +68,10 @@ int computePrimes(long int a, long int b) {
 
 
 int main() {
-    cout << computePrimes(1, 100) << endl;
+    long int a, b;
+    cout << "Enter a: ";
+    cin >> a;
+    cout << "Enter b: ";
+    cin >> b;
+    cout << computePrimes(a, b) << endl;
 }
