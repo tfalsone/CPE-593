@@ -2,7 +2,7 @@
 
 class GrowArray {
 private:
-    int* data;
+    int* data; // int[]
     int used;
     int capacity;
 
@@ -10,8 +10,15 @@ private:
         // Double each time
         if (capacity == 0) {
             capacity = 1;
+            data = new int[capacity];
         } else {
             capacity *= 2;
+            int* temp = new int[capacity];
+            for (int i = 0; i < (used); i++) {
+                temp[i] = data[i];
+            }
+            delete [] data;
+            data = temp;
         }
     }
     void checkGrow() {
@@ -36,9 +43,12 @@ public:
         delete [] data;
     }
 
-    void addBack(int start, int step, int end) { // O(1)
-        checkGrow();
-
+    void addBack(int start, int step, int end) { // O(1)    
+        for (int i = start; i <= end; start += step) {
+            checkGrow();
+            data[used] = i;
+            used++;
+        }
     }
 
     void addFront(int start, int step, int end) { // O(n)
