@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
+
+using namespace std;
 
 class hashLinearProbing {
 private:
@@ -16,11 +19,12 @@ private:
             capacity *= 2;
             int* temp = new int[capacity];
             for (int i = 0; i < used; i++) {
-                temp[i] = data[i];
+                temp[i] = hashMap[i];
             }
-            delete [] data;
-            data = temp;
+            delete [] hashMap;
+            hashMap = temp;
         }
+        //cout << "HashMap grown to size " << capacity << endl;
     }
 
     int hash(int m) {
@@ -31,17 +35,23 @@ public:
     hashLinearProbing() {
         hashMap = nullptr;
         capacity = used = 0;
+        cout << "Creating HashMap" << endl;
     }
 
     ~hashLinearProbing() {
-        delete [] data;
+        delete [] hashMap;
+        //~collisions;
     }
 
     void add(int m) {
         // Check size of current map
-        if ((2*used) > capacity)
+        cout << "Currently used spaces: " << used << endl;
+        cout << "Current capacity: " << capacity << endl;
+        if ((2*used) >= capacity) {
+          //cout << "Growing array" << endl;
             grow();
-        
+        }
+
         // Implement hashing function
         int pos = hash(m);
         int collide = 0;
@@ -52,23 +62,55 @@ public:
                 pos == 0;
             }
         }
-        used ++;
+        // TODO - Only incrememnt used if it is a new number
+        if (hashMap[pos] != m) {
+          used++;
+        }
         hashMap[pos] = m;
         collisions.push_back(collide);
+        //cout << "Added " << m << " with " << collide << " collisions" << endl;
+    }
+
+    void getCollisions() {
+      for (int i = 0; i < collisions.size(); i++) {
+        cout << collisions[i] << '\t';
+      }
+      cout << endl;
     }
 
     void displayHistogram() {
-        vector<int> histogram;
-        int col_ind = 0;
-        for (int i = 0; i < 50; i++) {
-            
+        int* hist = new int[51];
+        int j;
+        //cout << collisions.size();
+        for (int i = 0; i < collisions.size(); i++) {
+          j = collisions[i];
+          if (j > 50) {
+            hist[51]++;
+          } else {
+            hist[j]++;
+            //cout << j << '\t' << hist[j] << endl;
+          }
         }
 
-        
+        for (int i = 0; i < 51; i++) {
+          cout << i << '\t' << hist[i] << endl;
+        }
+        cout << ">50" << '\t' << hist[51] << endl;
+        delete [] hist;
     }
-}
+};
 
 
 int main() {
-
+    hashLinearProbing h;
+    int r;
+    srand(time(nullptr));
+    for (int i = 1; i < 300; i++) {
+      r = 1 + rand() % 500;
+      cout << r << endl;
+      h.add(r);
+    }
+    //h.getCollisions();
+    cout << endl;
+    h.displayHistogram();
 }

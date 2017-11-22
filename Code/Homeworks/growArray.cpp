@@ -46,8 +46,8 @@ public:
         delete [] data;
     }
 
-    void addBack(int start, int step, int end) { // O(1)   
-        if (step == 0) { return; } 
+    void addBack(int start, int step, int end) { // O(1)
+        if (step == 0) { return; }
 
         for (int i = start; i <= end; i += step) {
             checkGrow();
@@ -108,7 +108,7 @@ public:
         for (int i = n; i < used; i++) {
             temp[i-n] = data[i];
         }
-        delete [] data; 
+        delete [] data;
         data = temp;
         used -= n;
     }
