@@ -35,18 +35,17 @@ public:
     hashLinearProbing() {
         hashMap = nullptr;
         capacity = used = 0;
-        cout << "Creating HashMap" << endl;
+        //cout << "Creating HashMap" << endl;
     }
 
     ~hashLinearProbing() {
         delete [] hashMap;
-        //~collisions;
     }
 
     void add(int m) {
         // Check size of current map
-        cout << "Currently used spaces: " << used << endl;
-        cout << "Current capacity: " << capacity << endl;
+        //cout << "Currently used spaces: " << used << endl;
+        //cout << "Current capacity: " << capacity << endl;
         if ((2*used) >= capacity) {
           //cout << "Growing array" << endl;
             grow();
@@ -104,13 +103,11 @@ public:
 int main() {
     hashLinearProbing h;
     int r;
-    srand(time(nullptr));
-    for (int i = 1; i < 300; i++) {
-      r = 1 + rand() % 500;
-      cout << r << endl;
-      h.add(r);
+    cin >> r;
+    for (int i = 1; i < r; i++) {
+      h.add(i);
     }
-    //h.getCollisions();
+    h.getCollisions();
     cout << endl;
     h.displayHistogram();
 }
