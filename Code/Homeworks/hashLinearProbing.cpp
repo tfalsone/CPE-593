@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
+//#include <stdint.h>
 
 using namespace std;
 
@@ -8,16 +8,16 @@ class hashLinearProbing {
 private:
     int capacity;
     int used;
-    vector<int> collisions;
-    int* hashMap;
+    vector<uint32_t> collisions;
+    uint32_t* hashMap;
 
     void grow() {
         if (capacity == 0) {
             capacity = 1;
-            hashMap = new int[capacity];
+            hashMap = new uint32_t[capacity];
         } else {
             capacity *= 2;
-            int* temp = new int[capacity];
+            uint32_t* temp = new uint32_t[capacity];
             for (int i = 0; i < used; i++) {
                 temp[i] = hashMap[i];
             }
@@ -27,8 +27,8 @@ private:
         //cout << "HashMap grown to size " << capacity << endl;
     }
 
-    int hash(int m) {
-        return m % capacity;
+    uint32_t hash(uint32_t a) {
+      return a % capacity;
     }
 
 public:
@@ -42,7 +42,7 @@ public:
         delete [] hashMap;
     }
 
-    void add(int m) {
+    void add(uint32_t m) {
         // Check size of current map
         //cout << "Currently used spaces: " << used << endl;
         //cout << "Current capacity: " << capacity << endl;
@@ -52,7 +52,7 @@ public:
         }
 
         // Implement hashing function
-        int pos = hash(m);
+        uint32_t pos = hash(m);
         int collide = 0;
         while(hashMap[pos] != 0 && hashMap[pos] != m) {
             collide ++;
@@ -78,10 +78,10 @@ public:
     }
 
     void displayHistogram() {
-        int* hist = new int[51];
-        int j;
+        uint32_t* hist = new uint32_t[51];
+        uint32_t j;
         //cout << collisions.size();
-        for (int i = 0; i < collisions.size(); i++) {
+        for (uint32_t i = 0; i < collisions.size(); i++) {
           j = collisions[i];
           if (j > 50) {
             hist[51]++;
@@ -91,7 +91,7 @@ public:
           }
         }
 
-        for (int i = 0; i < 51; i++) {
+        for (uint32_t i = 0; i < 51; i++) {
           cout << i << '\t' << hist[i] << endl;
         }
         cout << ">50" << '\t' << hist[51] << endl;
@@ -102,9 +102,9 @@ public:
 
 int main() {
     hashLinearProbing h;
-    int r;
+    uint32_t r;
     cin >> r;
-    for (int i = 1; i < r; i++) {
+    for (uint32_t i = 1; i <= r; i++) {
       h.add(i);
     }
     h.getCollisions();
