@@ -17,6 +17,10 @@ public:
     next = nullptr;
   }
 
+  void setCount(int n) {
+    this->count = n;
+  }
+
   int getCount() {
     return count;
   }
@@ -27,6 +31,14 @@ public:
 
   LLHashNode *getNext() {
     return next;
+  }
+
+  bool isNext() {
+    if (this->next != nullptr) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void setNext(LLHashNode *next) {
@@ -70,18 +82,52 @@ public:
     for (int i = 0; i < length; i++) {
       sum += (i+1) * s[i];
     }
-    cout << "Sum of string: " << sum << '\t' << "Hash value: " << sum % TABLE_SIZE << endl;
+    //cout << "Sum of string: " << sum << '\t' << "Hash value: " << sum % TABLE_SIZE << endl;
     return sum % TABLE_SIZE;
   }
 
   void put(string s) {
     int hashVal = hash(s);
+    LLHashNode *newNode = new LLHashNode(s);
+    int count;
     if (table[hashVal] == nullptr) {
-      table[hash] = new LLHashNode(s);
+      newNode->setCount(1);
+      table[hashVal] = newNode;
     } else {
+      LLHashNode *temp = table[hashVal];
+      count = temp->getCount();
+      table[hashVal] = newNode;
+      newNode->setNext(temp);
+      newNode->setCount(count+1);
+    }
+    cout << s << " has been hashed with value of " << hashVal << endl;
+  }
+
+  void displayCounts() {
+    LLHashNode *temp;
+    for (int i = 0; i < TABLE_SIZE; i++) {
+      temp = table[i];
+      if(temp != nullptr) {
+        cout << i << "\t" << temp->getCount() << endl;
+      } else {
+        cout << i << '\t' << "0" << endl;
+      }
 
     }
+  }
 
+  bool wordExists(string s) {
+    int hashVal = hash(s);
+    LLHashNode *temp = table[hashVal];
+    while (temp != nullptr) {
+      //cout << temp->getVal();
+      if (temp->getVal() == s) {
+        return true;
+      } else {
+        temp = temp->getNext();
+      }
+    }
+    return false;
   }
 };
 
@@ -89,4 +135,8 @@ int main() {
   hashLinearChain h;
   h.put("test");
   h.put("word");
+  h.put("yhomas");
+  h.put("a");
+  cout << h.wordExists("yhomas") << endl;
+  h.displayCounts();
 }
