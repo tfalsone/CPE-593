@@ -11,7 +11,7 @@
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
-                    "/usr/include",
+                    "/usr/include/c++/7",
                     "/usr/local/include",
                     "${workspaceRoot}"
                 ],

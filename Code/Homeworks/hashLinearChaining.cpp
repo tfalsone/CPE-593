@@ -1,5 +1,11 @@
+/*
+  Thomas Falsone
+  11/30/17
+  CPE 593
+*/
+
 #include <iostream>
-#include <sstream>
+#include <fstream>
 #include <vector>
 #include <string>
 using namespace std;
@@ -47,7 +53,7 @@ public:
 
 };
 
-const int TABLE_SIZE = 128;
+const int TABLE_SIZE = 2000;
 
 class hashLinearChain {
 private:
@@ -100,7 +106,7 @@ public:
       newNode->setNext(temp);
       newNode->setCount(count+1);
     }
-    cout << s << " has been hashed with value of " << hashVal << endl;
+    //cout << s << " has been hashed with value of " << hashVal << endl;
   }
 
   void displayCounts() {
@@ -133,10 +139,28 @@ public:
 
 int main() {
   hashLinearChain h;
-  h.put("test");
-  h.put("word");
-  h.put("yhomas");
-  h.put("a");
-  cout << h.wordExists("yhomas") << endl;
+  ifstream readFile;
+  readFile.open("dict.txt");
+  string s;
+
+  if (readFile.is_open()) {
+    while (!readFile.eof()) {
+      readFile >> s;
+      h.put(s);
+    }
+  }
+  readFile.close();
+
+  readFile.open("hw8.dat");
+
+  if (readFile.is_open()) {
+    cout << "opening hw8.dat\n";
+    while (readFile >> s) {
+      cout << s << endl;
+      cout << h.wordExists(s) << endl;
+    }
+  }
+  readFile.close();
+
   h.displayCounts();
 }
